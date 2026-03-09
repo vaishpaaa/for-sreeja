@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        /* --- CSS STYLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes for smooth transitions */
+        .hidden {
+            display: none !important;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #d1d1e0;
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-special {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-special:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn-normal {
+            background: transparent;
+            color: #a0a0b5;
+            border: 2px solid #a0a0b5;
+        }
+
+        .btn-normal:hover {
+            background: rgba(160, 160, 181, 0.1);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .memory-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .memory-date {
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #ff8e8b;
+            font-weight: 600;
+        }
+
+        /* Modal (Popup for individual photo) */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+            max-height: 400px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page" class="container fade-in">
+        <h1>Welcome</h1>
+        <p>Before we begin, I need you to make a choice. How do you see yourself?</p>
+        <div class="btn-container">
+            <button class="btn-special" onclick="goToGallery()">Special</button>
+            <button class="btn-normal" onclick="goToLecture()">Normal</button>
+        </div>
+    </div>
+
+    <div id="lecture-page" class="container hidden fade-in">
+        <h1>Wait a minute... Normal?</h1>
+        <p>Why would you ever press that button? There is absolutely nothing "normal" or ordinary about you.</p>
+        <p>You bring light into every room you enter. Your laugh is completely one of a kind, your heart is incredibly huge, and the way you see the world is completely unique. You are the most special person, and I refuse to let you think otherwise.</p>
+        <p>Now that we have that cleared up... let me show you what I see.</p>
+        <button class="btn-special" onclick="goToGallery()">See Memories</button>
+    </div>
+
+    <div id="gallery-page" class="container hidden fade-in" style="max-width: 1000px;">
+        <h1>Our Memories</h1>
+        <p>A collection of all the times you were definitely not "normal".</p>
+        <div class="gallery-grid" id="gallery-grid">
+            </div>
+    </div>
+
+    <div id="photo-modal" class="modal hidden fade-in">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✖</button>
+            <img id="modal-img" src="" alt="Memory">
+            <h3 id="modal-date" style="color: #ff8e8b; margin-bottom: 10px;"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- YOUR DATA GOES HERE ---
+        // Change the image URLs, dates, and texts to your actual memories!
+        const memories = [
+            {
+                img: "https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?w=500&q=80",
+                date: "October 14, 2023",
+                text: "The day we went to that cafe. You couldn't stop laughing at my terrible jokes. It's one of my favorite memories of your smile."
+            },
+            {
+                img: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&q=80",
+                date: "December 31, 2023",
+                text: "New Year's Eve. We stayed up talking for hours. I realized right then how incredibly lucky I am to have you in my life."
+            },
+            {
+                img: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=500&q=80",
+                date: "March 5, 2024",
+                text: "That random afternoon walk. Nothing big happened, but being with you makes even the quiet moments feel like an adventure."
+            }
+        ];
+
+        // --- PAGE NAVIGATION LOGIC ---
+        function hideAllPages() {
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('lecture-page').classList.add('hidden');
+            document.getElementById('gallery-page').classList.add('hidden');
+        }
+
+        function goToLecture() {
+            hideAllPages();
+            const lecturePage = document.getElementById('lecture-page');
+            lecturePage.classList.remove('hidden');
+            lecturePage.classList.remove('fade-in'); 
+            void lecturePage.offsetWidth; // trigger reflow for animation
+            lecturePage.classList.add('fade-in');
+        }
+
+        function goToGallery() {
+            hideAllPages();
+            const galleryPage = document.getElementById('gallery-page');
+            galleryPage.classList.remove('hidden');
+            galleryPage.classList.remove('fade-in');
+            void galleryPage.offsetWidth;
+            galleryPage.classList.add('fade-in');
+            renderGallery();
+        }
+
+        // --- GALLERY & MODAL LOGIC ---
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = ''; // Clear existing
+            
+            memories.forEach((memory, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.onclick = () => openModal(index);
+                
+                card.innerHTML = `
+                    <img src="${memory.img}" alt="Memory ${index}">
+                    <div class="memory-date">${memory.date}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(index) {
+            const modal = document.getElementById('photo-modal');
+            const memory = memories[index];
+            
+            document.getElementById('modal-img').src = memory.img;
+            document.getElementById('modal-date').innerText = memory.date;
+            document.getElementById('modal-text').innerText = memory.text;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('photo-modal').classList.add('hidden');
+        }
+
+        // Close modal if clicking outside the content
+        window.onclick = function(event) {
+            const modal = document.getElementById('photo-modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

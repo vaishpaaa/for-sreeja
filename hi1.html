@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sreeja</title>
+    <style>
+        /* Elegant Aesthetic Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Warm Cream and Pastel Beige Gradient */
+            background: linear-gradient(135deg, #fcf8f2 0%, #e8decb 100%);
+            color: #4e3629; /* Deep espresso brown */
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Playfair Display', serif; 
+            color: #9c7a52; /* Muted aesthetic gold/brown */
+        }
+
+        .hidden { display: none !important; }
+
+        .container {
+            background: rgba(255, 253, 248, 0.65);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(198, 166, 100, 0.2); /* Subtle golden border */
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(78, 54, 41, 0.08); /* Soft brown shadow */
+            margin: auto;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 20px; font-weight: 700; letter-spacing: 1px; }
+        p { font-size: 1.15rem; line-height: 1.7; margin-bottom: 25px; font-weight: 500; color: #634b3e; }
+
+        .btn-container { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+
+        button {
+            padding: 12px 35px; font-size: 1.1rem; border: none; border-radius: 50px;
+            cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-family: 'Quicksand', sans-serif;
+        }
+
+        .btn-special {
+            background: linear-gradient(45deg, #c6a664, #dfc48c); /* Golden tones */
+            color: #fff; 
+            box-shadow: 0 4px 15px rgba(198, 166, 100, 0.4);
+        }
+        .btn-special:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(198, 166, 100, 0.6); 
+            background: linear-gradient(45deg, #b59352, #d1b275); 
+        }
+
+        .btn-normal { background: transparent; color: #8a6c51; border: 2px solid #c6a664; }
+        .btn-normal:hover { background: #fcf8f2; color: #4e3629; }
+
+        /* Input Field */
+        input[type="text"] {
+            padding: 15px 20px; font-size: 1.1rem; border-radius: 25px;
+            border: 2px solid #c6a664; background: #fffdfa; color: #4e3629;
+            outline: none; text-align: center; margin-bottom: 20px; width: 80%; max-width: 300px;
+            font-family: 'Quicksand', sans-serif; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+        input[type="text"]::placeholder { color: #b8a391; }
+        
+        #error-msg { color: #b05c5c; font-size: 0.95rem; margin-top: -10px; margin-bottom: 15px; font-weight: 600; }
+
+        /* Gallery Grid */
+        .gallery-wrapper { max-height: 65vh; overflow-y: auto; padding-right: 15px; margin-bottom: 20px; }
+        
+        /* Aesthetic Scrollbar */
+        .gallery-wrapper::-webkit-scrollbar { width: 6px; }
+        .gallery-wrapper::-webkit-scrollbar-track { background: transparent; }
+        .gallery-wrapper::-webkit-scrollbar-thumb { background: #d3be99; border-radius: 10px; }
+
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px; padding-bottom: 20px; padding-top: 10px;
+        }
+
+        .memory-card {
+            background: #fffdfa; border-radius: 18px; overflow: hidden;
+            cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            box-shadow: 0 5px 15px rgba(78, 54, 41, 0.05);
+            padding: 10px;
+            border: 1px solid rgba(198, 166, 100, 0.1);
+        }
+        .memory-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(198, 166, 100, 0.2); }
+        .memory-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+        .memory-date { padding: 15px 10px 5px 10px; font-size: 1rem; color: #9c7a52; font-weight: 600; text-align: center; font-family: 'Playfair Display', serif; }
+
+        /* Modal / Popup */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(245, 239, 230, 0.85); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #fffdfa; padding: 40px; border-radius: 25px; max-width: 600px; width: 90%;
+            text-align: center; position: relative; box-shadow: 0 20px 50px rgba(78, 54, 41, 0.15);
+            border: 1px solid rgba(198, 166, 100, 0.4);
+        }
+        .modal-content img { width: 100%; border-radius: 15px; max-height: 400px; object-fit: cover; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        .close-btn { 
+            position: absolute; top: 20px; right: 25px; font-size: 1.8rem; color: #8a6c51; 
+            cursor: pointer; background: none; border: none; transition: color 0.3s ease;
+        }
+        .close-btn:hover { color: #4e3629; }
+        
+        #modal-text { color: #634b3e; line-height: 1.6; font-size: 1.1rem; }
+
+        .final-letter { 
+            text-align: left; font-style: italic; color: #4e3629; font-size: 1.25rem; 
+            background: #fffdfa; padding: 30px; border-radius: 15px; 
+            box-shadow: inset 0 0 20px rgba(198, 166, 100, 0.1); 
+            border: 1px solid rgba(198, 166, 100, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page" class="container">
+        <h1>Welcome, Sreeja</h1>
+        <p>Before we go any further, I need you to make a choice.<br>How do you see yourself?</p>
+        <div class="btn-container">
+            <button class="btn-special" onclick="goToRiddle()">Special</button>
+            <button class="btn-normal" onclick="goToLecture()">Normal</button>
+        </div>
+    </div>
+
+    <div id="lecture-page" class="container hidden">
+        <h1>Wait a minute... Normal?</h1>
+        <p>Sreeja, why would you ever press that button? There is absolutely nothing "normal" or ordinary about you.</p>
+        <p>You bring light into every room you enter. Your smile is completely one of a kind, your heart is incredibly huge, and the way you see the world makes everything better. You are the most special person, and I refuse to let you think otherwise.</p>
+        <button class="btn-special" onclick="goToRiddle()">Okay, fine. I'm special.</button>
+    </div>
+
+    <div id="riddle-page" class="container hidden">
+        <h1>Security Check</h1>
+        <p>Just to make sure it's really you, Sreeja... answer this to unlock the vault:</p>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #9c7a52; margin-bottom: 15px;">What is the name of the most beautiful girl I know?</p>
+        
+        <input type="text" id="riddle-answer" placeholder="Type your answer..." onkeypress="handleEnter(event)">
+        <p id="error-msg" class="hidden">Nope! Try again.</p>
+        
+        <div class="btn-container">
+            <button class="btn-special" onclick="checkAnswer()">Unlock the Vault</button>
+        </div>
+    </div>
+
+    <div id="gallery-page" class="container hidden">
+        <h1>Sreeja's Vault</h1>
+        <p>A collection of all the times you were definitely not "normal".</p>
+        
+        <div class="gallery-wrapper">
+            <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+        
+        <button class="btn-special" onclick="goToLetter()">I have one last thing to say...</button>
+    </div>
+
+    <div id="letter-page" class="container hidden">
+        <h1>For You.</h1>
+        <div class="final-letter">
+            <p>"I made this just to remind you of how much you mean to me.</p><br>
+            <p>Life gets busy, and sometimes we forget to pause and appreciate the people who make it better. You make it better. Every single day.</p><br>
+            <p>Sreeja,</p><br>
+            <p>Looking at all these pictures and memories, I just realized how beautiful my life has become since you became a part of it. Every moment spent with you, every conversation, and every laugh we share is a memory I want to keep safe forever. You bring a kind of peace and happiness into my life that I never knew I was missing.</p><br>
+            <p>You are not just a wonderful person on the outside, but you have the purest and most genuine heart. The way you care for people, the way you understand my silence, and the way you effortlessly make everyone around you feel special—it just makes me respect and admire you more every single day.</p><br>
+            <p>Whenever I am having a stressful day, just talking to you or seeing your smile makes everything feel completely okay. You have this beautiful positive energy around you. You never fail to support me, and honestly, just knowing that you are there gives me so much strength.</p><br>
+            <p>I just wanted to take this moment to tell you how incredibly important you are to me. I don't ever want to see you sad. Please never let that beautiful smile fade away from your face, because your happiness means the world to me.</p><br>
+            <p>Thank you for being exactly who you are, and thank you for being such a beautiful part of my journey.Never forget how special you are to me."</p><br>
+            <p style="text-align: right; margin-top: 20px; font-weight: 600;">Yours,<br>Vaish</p>
+        </div>
+        </div>
+        <button class="btn-normal" style="margin-top: 30px;" onclick="goToGallery()">Back to Memories</button>
+    </div>
+
+    <div id="photo-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✖</button>
+            <img id="modal-img" src="" alt="Memory">
+            <h3 id="modal-date"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- THE PASSWORD ---
+        const CORRECT_ANSWER = "sreeja"; 
+        
+        const memories = [
+            // Memory 1 (from image_1.png)
+            { 
+                img: "1.jpeg", // <-- Keep this, you are renaming your files to 1.jpeg, etc.
+                date: "A Serious Moment", // <-- You mentioned you will change the date later
+                text: "Focus mode on. Even with the mask, I can see how intensely you are concentrating here. I remember sneaking this shot while you weren't looking, just wishing you good luck." 
+            },
+            // Memory 2 (from image_2.png)
+            { 
+                img: "2.jpeg", 
+                date: "Squad and Ghosts", 
+                text: "Haha, just hanging out with the crew being absolute dorks with the ghost filters. Typical chaos when we're all together. This photo makes me laugh every time.and iam really jealous of how good you look even with the ghost filter on and jealous because you are sitting to that ypur so called best friend or your special one" 
+            },
+            // Memory 3 (from image_3.png)
+            { 
+                img: "3.jpeg", 
+                date: "Outdoors Gathering", 
+                text: "Remember this day at the gathering? We got all dressed up, and you had that pink badge (rosette #4!) on your sweater. Sreeja, you were glowing even in the bright daylight.and i am dieing to hold your hand ofcourse i didnt do it." 
+            },
+            // Memory 4 (from image_4.png)
+            { 
+                img: "4.jpeg", 
+                date: "Close Together", 
+                text: "Just having a good day and snapping a silly vertical selfie. We look so happy and comfortable here. I love this close connection." 
+            },
+            // Memory 5 (from image_5.png)
+            { 
+                img: "5.jpeg", 
+                date: "Event Day", 
+                text: "Back when we were all dressed up for that event, bright daylight smiles. That pink shirt really looked good on you, Sreeja, but that broad smile of yours looks better." 
+            },
+            // Memory 6 (from image_6.png)
+            { 
+                img: "6.jpeg", 
+                date: "Calm River Ride", 
+                text: "Captured this peaceful moment when we were out on the boat. The view over the water with the bridge was nice, but I was mostly just admiring that gentle look in your eyes. Also, that earring debate!" 
+            },
+            // Memory 7 (from image_7.png)
+            { 
+                img: "7.jpeg", 
+                date: "Happy Birthday Glow", 
+                text: "Dark room, Low light, but the warmest expression. I remember the candle glow on your face while you were holding the burning birthday cake, making your wish. A special night." 
+            },
+            // Memory 8 (from image_8.png)
+            { 
+                img: "8.jpeg", 
+                date: "Stunning in Orange", 
+                text: "Sreeja, you looked absolutely amazing in this textured orange dress against that cork background. I remember thinking right then that I *had* to capture how good you looked." 
+            },
+            // Memory 9 (from image_9.png)
+            { 
+                img: "9.jpeg", 
+                date: "Mirror Check", 
+                text: "A sneak-peak full mirror selfie in the trial room. Still rocking that orange dress with your green phone. Looks perfect on you." 
+            },
+            // Memory 10 (from image_10.png)
+            { 
+                img: "10.jpeg", 
+                date: "Soft Smiles", 
+                text: "Just a candid moment of you sitting and relaxing on the white chair at the gathering. It’s such a soft, natural picture of your smile. I just loved enjoying the moment with you." 
+            },
+            // Memory 11 (from 11.jpeg)
+            { 
+                img: "11.jpeg", 
+                date: "By the Tree", 
+                text: "Caught you mid-moment fixing your hair by that big tree trunk. Sreeja, you looked so effortlessly pretty here in that pastel dress." 
+            },
+            // Memory 12 (from 12.jpeg)
+            { 
+                img: "12.jpeg", 
+                date: "The Big Celebration", 
+                text: "The whole group up on stage with the purple balloons! Everyone was dressed up for the big day, but my eyes were definitely on you." 
+            },
+            // Memory 13 (from 13.jpeg)
+            { 
+                img: "13.jpeg", 
+                date: "Matching the Vibe", 
+                text: "Just the two of us posing indoors. Me trying to look sharp in that pink suit, and you looking absolutely gorgeous next to me." 
+            },
+            // Memory 14 (from 14.jpeg)
+            { 
+                img: "14.jpeg", 
+                date: "Warm Selfie", 
+                text: "Such a sweet, close-up selfie. I just love the warm lighting here and that soft, genuine smile of yours." 
+            },
+            // Memory 15 (from 15.jpeg)
+            { 
+                img: "15.jpeg", 
+                date: "Out on the Grounds", 
+                text: "Standing out in the sun with the tents and flags behind you. Even with all the crowds around, you always look so calm and beautiful." 
+            },
+            // Memory 16 (from 16.jpeg)
+            { 
+                img: "16.jpeg", 
+                date: "Campus Days", 
+                text: "A quick group selfie outside on campus. You in that peach uniform shirt... having you around always made those days so much better." 
+            },
+            // Memory 17 (from 17.jpeg)
+            { 
+                img: "17.jpeg", 
+                date: "That Look", 
+                text: "I absolutely love this picture. You standing there with your arms crossed, giving me that specific smile while we were out on the ground." 
+            },
+            // Memory 18 (from 18.jpeg)
+            { 
+                img: "18.jpeg", 
+                date: "Desk Antics", 
+                text: "Messing around with sunglasses at the desk while we were probably supposed to be paying attention. You look so amused with me here." 
+            },
+            // Memory 19 (from 19.jpeg)
+            { 
+                img: "19.jpeg", 
+                date: "Coffee & Smiles", 
+                text: "That bright, gorgeous smile over a cold coffee. The blue and white straw, the floral top—you just look so incredibly happy here, Sreeja." 
+            },
+            // Memory 20 (from 20.jpeg)
+            { 
+                img: "20.jpeg", 
+                date: "Cozy Vibes", 
+                text: "Just a relaxed, warm selfie resting your head. Those jhumkas look so cute on you. It's such a comforting picture to look at." 
+            },
+           // Memory 21 (from 21.jpg) - Note: this one is .jpg!
+            { 
+                img: "21.jpeg", 
+                date: "Pure Royalty", 
+                text: "This portrait of you is just mesmerizing. The mandala background, the bindi, the intense look in your eyes... you look like absolute royalty here, Sreeja." 
+            },
+            // Memory 22 (from 22.jpeg)
+            { 
+                img: "22.jpeg", 
+                date: "Mid-Conversation", 
+                text: "Catching us right in the middle of a moment. I love how elegant you looked in this green and gold saree with those beautiful earrings, even while we were just goofing around." 
+            },
+            // Memory 23 (from 23.jpeg)
+            { 
+                img: "23.jpeg", 
+                date: "Dressed to Impress", 
+                text: "A proper picture of us all dressed up. Standing next to you while you wore that stunning saree, I definitely felt like the luckiest guy there." 
+            },
+            // Memory 24 (from 24.jpeg)
+            { 
+                img: "24.jpeg", 
+                date: "Close and Happy", 
+                text: "A quick, happy close-up of us. The way your smile lights up your face in that beautiful red and cream outfit gets me every time." 
+            },
+            // Memory 25 (from 25.jpeg)
+            { 
+                img: "25.jpeg", 
+                date: "Campus Memories", 
+                text: "Such a proud and happy day at the university. Standing next to you in our traditional wear, celebrating these important moments together." 
+            },
+            // Memory 26 (from 26.jpeg)
+            { 
+                img: "26.jpeg", 
+                date: "Effortless", 
+                text: "A sweet, candid moment of you in your green patterned top and black jacket. I love how effortlessly beautiful you are even when you aren't posing for the camera." 
+            },
+            // Memory 27 (from 27.jpeg)
+            { 
+                img: "27.jpeg", 
+                date: "S & V", 
+                text: "A classic black and white memory. Just 'S' and 'V'. No matter where we are or what we're doing, sitting right next to you is my favorite place to be." 
+            },
+            // Memory 28 (from best moment in my life (1).jpeg)
+            { 
+                img: "best moment in my life (1).jpeg", 
+                date: "Matching Energy", 
+                text: "Rocking it out on the lawn! You looked absolutely radiant in that bright green lehenga. The energy on this day was perfect, and I love that we can just be our fun selves together." 
+            },
+            // Memory 29 (from best picture of my entire life.jpeg)
+            { 
+                img: "best picture of my entire life.jpeg", 
+                date: "My Favorite View", 
+                text: "Sitting on the grass, just talking under the palm trees. I don't even remember exactly what I was saying, but looking at you looking back at me... honestly, this is the best picture of my entire life." 
+            },
+            // Memory 30 (from wow.jpeg)
+            { 
+                img: "wow.jpeg", 
+                date: "Just... Wow.", 
+                text: "Sreeja, you look absolutely breathtaking in this peach saree with the wind in your hair. Standing next to you on a beautiful sunny day—this is the perfect memory to wrap up the vault." 
+            }
+        ];
+        function switchPage(pageId) {
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('lecture-page').classList.add('hidden');
+            document.getElementById('riddle-page').classList.add('hidden');
+            document.getElementById('gallery-page').classList.add('hidden');
+            document.getElementById('letter-page').classList.add('hidden');
+            
+            const page = document.getElementById(pageId);
+            page.classList.remove('hidden');
+        }
+
+        function goToLecture() { switchPage('lecture-page'); }
+        function goToRiddle() { switchPage('riddle-page'); document.getElementById('error-msg').classList.add('hidden'); }
+        function goToGallery() { switchPage('gallery-page'); renderGallery(); }
+        function goToLetter() { switchPage('letter-page'); }
+
+        // --- RIDDLE LOGIC ---
+        function checkAnswer() {
+            const input = document.getElementById('riddle-answer').value.toLowerCase().trim();
+            if (input === CORRECT_ANSWER) {
+                goToGallery();
+            } else {
+                document.getElementById('error-msg').classList.remove('hidden');
+            }
+        }
+        
+        function handleEnter(e) {
+            if(e.key === 'Enter') checkAnswer();
+        }
+
+        // --- GALLERY & MODAL LOGIC ---
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            if (grid.innerHTML !== '') return; 
+
+            memories.forEach((memory, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.onclick = () => openModal(index);
+                card.innerHTML = `<img src="${memory.img}" loading="lazy" alt="Memory"><div class="memory-date">${memory.date}</div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(index) {
+            const modal = document.getElementById('photo-modal');
+            const memory = memories[index];
+            document.getElementById('modal-img').src = memory.img;
+            document.getElementById('modal-date').innerText = memory.date;
+            document.getElementById('modal-text').innerText = memory.text;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('photo-modal').classList.add('hidden'); }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('photo-modal')) closeModal();
+        }
+    </script>
+</body>
+</html>
